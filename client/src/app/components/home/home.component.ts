@@ -27,10 +27,6 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.allStay();
-
-    // this.subscription = this.parkingService.$refresh.subscribe(() => {
-    //   this.allStay();
-    // });
   }
 
   ngOnDestroy(): void {

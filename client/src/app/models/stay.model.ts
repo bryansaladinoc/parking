@@ -5,12 +5,4 @@ export interface Stay {
     payment: number,
     vehicle_type: string,
     vehicle_id: string,
-    // constructor(
-    //     entry_time: string,
-    //     exit_time: string,
-    //     time: number,
-    //     payment: number,
-    //     vehicle_type: string,
-    //     vehicle_id: string,
-    // ) { }
 }

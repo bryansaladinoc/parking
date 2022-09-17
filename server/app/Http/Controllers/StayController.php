@@ -17,8 +17,6 @@ class StayController extends Controller
 
     public function registerEntry(Request $request)
     {
-        // return response()->json(gettype($request->entry_time));
-
         $stay = new Stay();
         $stay->entry_time = $request->entry_time;
         $stay->vehicle_id = $request->vehicle_id;

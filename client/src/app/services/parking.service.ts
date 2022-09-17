@@ -3,30 +3,19 @@ import { environment } from 'src/environments/environment';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Stay } from 'src/app/models/stay.model';
 import { Vehicle } from '../models/vehicle.model';
-import { Observable, Subject } from 'rxjs';
-import { tap } from 'rxjs/operators';
+import { Observable} from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ParkingService {
   base = environment.base;
-  private _refresh$ = new Subject<void>();
   constructor(
     private httpClient: HttpClient
   ) { }
 
-  get $refresh(): Observable<any> {
-    return this._refresh$;
-  }
-
   getStay(): Observable<any> {
-    return this.httpClient.get<Stay[]>(`${this.base}stay`)
-      .pipe(
-        tap(() => {
-          this._refresh$.next();
-        })
-      )
+    return this.httpClient.get<Stay[]>(`${this.base}stay`);
   }
 
   addEntry(stay: Stay): Observable<any> {
