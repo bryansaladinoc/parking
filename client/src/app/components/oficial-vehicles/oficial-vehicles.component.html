@@ -1,0 +1,54 @@
+<div class="container">
+    <div class="container mb-5">
+        <div class="row">
+            <div class="col">
+                <button type="button" class="btn btn-primary me-5" data-bs-toggle="modal"
+                    data-bs-target="#modalAddVehicleOficial">Agregar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Table -->
+<div class="container">
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">Placa</th>
+                <th scope="col">Tiempo Total</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let vehicle of vehicles">
+                <td scope="row">{{vehicle.id}}</td>
+                <td scope="row">{{vehicle.total_time}}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<!-- Modals -->
+<div class="modal fade" id="modalAddVehicleOficial" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Registrar Vehiculo Oficial</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form #stayForm="ngForm" action="">
+                <div class="modal-body">
+                    <div class="input-group mb-3">
+                        <span class="input-group-text" id="basic-addon1">Placas</span>
+                        <input type="text" name="vehicle_id" id="vehicle_id" class="form-control"
+                            [(ngModel)]="vehicle.id" required>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal"
+                        [disabled]="!stayForm.form.valid" (click)="add()">Registrar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

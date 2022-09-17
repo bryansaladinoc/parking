@@ -1,0 +1,116 @@
+<div class="container mb-5">
+    <div class="row">
+        <div class="col-4">
+            <button type="button" class="btn btn-primary me-5" data-bs-toggle="modal"
+                data-bs-target="#modalRegisterEntry">Entrada</button>
+            <button type="button" class="btn btn-primary " data-bs-toggle="modal"
+                data-bs-target="#modalRegisterExit">Salida</button>
+        </div>
+
+        <div class="col-8 d-flex justify-content-end">
+            <button type="button" class="btn btn-info me-5" (click)="monthRestart()">Comienza mes</button>
+        </div>
+    </div>
+</div>
+
+<!-- Table -->
+<div class="container">
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">Placas</th>
+                <th scope="col">Tipo</th>
+                <th scope="col">Entrada</th>
+                <th scope="col">Salida</th>
+                <th scope="col">Tiempo</th>
+                <th scope="col">Pago</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let stay of arrStay">
+                <td scope="row">{{stay.vehicle_id}}</td>
+                <td scope="row">{{stay.vehicle_type}}</td>
+                <td scope="row">{{stay.entry_time}}hr</td>
+                <td scope="row">{{stay.exit_time}}hr</td>
+                <td scope="row">{{stay.time}}min</td>
+                <td scope="row">MXN ${{stay.payment}}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+
+<!-- Modals -->
+<div class="modal fade" id="modalRegisterEntry" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Registrar Entrada</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form #stayForm="ngForm" action="">
+                <div class="modal-body">
+                    <div class="input-group mb-3">
+                        <span class="input-group-text" id="basic-addon1">Placas</span>
+                        <input type="text" name="vehicle_id" id="vehicle_id" class="form-control"
+                            [(ngModel)]="stay.vehicle_id" (keyup)="showVehicleType($event)" required>
+                    </div>
+                    <div class="input-group mb-3">
+                        <span class="input-group-text" id="basic-addon1">Tipo</span>
+                        <input type="text" name="vehicle_type" id="vehicle_type" class="form-control"
+                            [(ngModel)]="stay.vehicle_type" disabled required>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal"
+                        [disabled]="!stayForm.form.valid" (click)="entry()">Registrar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="modalRegisterExit" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Registrar Salida</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form #stayForm="ngForm" action="">
+                <div class="modal-body">
+                    <div class="input-group mb-3">
+                        <span class="input-group-text" id="basic-addon1">Placas</span>
+                        <input type="text" name="vehicle_id" id="vehicle_id" class="form-control"
+                            [(ngModel)]="stay.vehicle_id" required>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal"
+                        [disabled]="!stayForm.form.valid" (click)="exit()" data-bs-toggle="modal"
+                        data-bs-target="#modalPayment">Registrar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div (click)="reload()" class="modal fade" id="modalPayment" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Registrar Salida</h5>
+            </div>
+            <div class="modal-body">
+                <span *ngIf="this.stay.payment == 0">VEHICULOS RESIDENTES PAGAN AL MES, VEHICULOS OFICIALES NO PAGAN</span>
+                <br>
+                TOTAL A PAGAR: {{this.stay.payment}}
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-success" data-bs-dismiss="modal" (click)="reload()">PAGADO</button>
+            </div>
+        </div>
+    </div>
+</div>

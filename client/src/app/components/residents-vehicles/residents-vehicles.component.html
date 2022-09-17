@@ -1,0 +1,86 @@
+<div class="container">
+    <div class="container mb-5">
+        <div class="row">
+            <div class="col">
+                <button type="button" class="btn btn-primary me-5" data-bs-toggle="modal"
+                    data-bs-target="#modalAddVehicleResident">Agregar</button>
+            </div>
+
+            <div class="col-8 d-flex justify-content-end">
+                <button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#modalExportPDF">Pago
+                    residentes</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Table -->
+<div class="container" id="paymentTable" #paymentTable>
+    <table class="table responsive">
+        <thead>
+            <tr>
+                <th scope="col">Placa</th>
+                <th scope="col">Tiempo Total</th>
+                <th scope="col">Pago Mensual</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let vehicle of vehicles">
+                <td scope="row">{{vehicle.id}}</td>
+                <td scope="row">{{vehicle.total_time}} min</td>
+                <td scope="row">MXN ${{vehicle.month_payment}}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<!-- Modals -->
+<div class="modal fade" id="modalAddVehicleResident" tabindex="-1" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Registrar Vehiculo Residente</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form #stayForm="ngForm" action="">
+                <div class="modal-body">
+                    <div class="input-group mb-3">
+                        <span class="input-group-text" id="basic-addon1">Placas</span>
+                        <input type="text" name="vehicle_id" id="vehicle_id" class="form-control"
+                            [(ngModel)]="vehicle.id" required>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal"
+                        [disabled]="!stayForm.form.valid" (click)="add()">Registrar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="modalExportPDF" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Reporte de pagos vehiculos residentes</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form #stayForm="ngForm">
+                <div class="modal-body">
+                    <div class="input-group mb-3">
+                        <span class="input-group-text" id="basic-addon1">Nombre del pdf</span>
+                        <input type="text" name="name_pdf" id="name_pdf" class="form-control" [(ngModel)]="namePDF"
+                            required>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal"
+                        (click)="downloadPDF()">Registrar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
